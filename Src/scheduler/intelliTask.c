@@ -42,6 +42,16 @@ typedef struct intellisat_task_t {
 
 */
 
+
+void send_task_notification(uint8_t task_id, uint32_t bits) {
+    for(int i=0; i<TASK_TABLE_LEN; i++) {
+        if(task_table[i].id == task_id && task_table[i].FreeRTOS_handle) {
+            xTaskNotify(task_table[i].FreeRTOS_handle, bits, eSetBits);
+            break;
+        }
+    }
+}
+
 intelli_task_t task_table[TASK_TABLE_LEN] = {
     {7, "LOW_PWR",      60000,  low_pwr_time,    config_low_pwr,    low_pwr,    clean_low_pwr,      NULL, NULL},  // Func1 - N/A
 	{6, "DETUMBLE",     60000,  detumble_time,   config_detumble,   detumble,   clean_detumble,     NULL, NULL},  // Func1 - N/A
