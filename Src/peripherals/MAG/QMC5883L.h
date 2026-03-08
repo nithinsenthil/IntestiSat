@@ -76,6 +76,11 @@ typedef enum  {
     MAG1 
 } Mag_Selector;
 
+typedef enum  {
+    MAG0,
+    MAG1 
+} Mag_Selector;
+
 /**
  * Initializes the magnetometer for operation.
  *
