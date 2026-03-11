@@ -15,4 +15,4 @@ The Orbital Platform goes through revisions. IntelliSat attempts to stay functio
 - Differences between the Revisions can be found [here](./Manuals/OrbitalPlatform_Hardware/OP_Hardware.md)
     - Certain LED function names differ between revisions, so it's important to know those
 
-TESTING MERGE! AJFKDSJAFKLJDASKLFJKADSLJFKSDAJFKLJDSAKFDKSAFKLDASKFLDASJKLFJASDKLFJKLADJLKFAJSDnaomi2Valerieya
+TESTING MERGE! AJFKDSJAFKLJDASKLFJKADSLJFKSDAJFKLJDSAKFDKSAFKLDASKFLDASJKLFJASDKLFJKLADJLKFAJSDnaomi2Valerie
