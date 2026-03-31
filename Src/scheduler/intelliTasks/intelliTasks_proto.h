@@ -1,10 +1,6 @@
 #ifndef INTELLITASKS_PROTO_H_
 #define INTELLITASKS_PROTO_H_
-
-#include "../schedulerGlobals.h"
-
-// default to 32
-volatile extern EventGroupHandle_t events_handler;
+#include "globals.h"
 
 /* Scheduling methods */
 
