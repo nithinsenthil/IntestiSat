@@ -1,7 +1,7 @@
 #include "platform_init.h"
 
-#define RUN_TEST	0	// 0 = run IntelliSat, 1 = run a very specific test
-#define TEST_ID 	0	// ID of the test to run in case RUN_TEST = 1
+#define RUN_TEST	0
+#define TEST_ID 	0
 
 #include <TestDefinition.h>
 
@@ -16,6 +16,7 @@ int main() {
     testFunc();
 
     #else
+	#Test comment
 
 	while (1) {
 		continue;
