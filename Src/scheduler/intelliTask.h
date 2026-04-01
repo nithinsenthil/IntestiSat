@@ -1,10 +1,15 @@
 #ifndef _TASK_H_
 #define _TASK_H_
 
+#include "schedulerGlobals.h"
+#include "task.h"
+#include <limits.h>
+
+#include "status.h"
 
 #include <stdbool.h>
 
-#define TASK_TABLE_LEN 7
+#define TASK_TABLE_LEN 6
 
 #define TASK_NOTIFY_ALL 0xFFFFFFFF
 
