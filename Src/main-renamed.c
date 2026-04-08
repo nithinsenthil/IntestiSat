@@ -1,6 +1,6 @@
 #include "platform_init.h"
 
-#define RUN_TEST	1
+#define RUN_TEST	0
 #define TEST_ID 	0
 
 #include <TestDefinition.h>
