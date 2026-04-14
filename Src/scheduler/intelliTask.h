@@ -9,7 +9,7 @@
 
 #include <stdbool.h>
 
-#define TASK_TABLE_LEN 6
+#define TASK_TABLE_LEN 7
 
 #define TASK_NOTIFY_ALL 0xFFFFFFFF
 

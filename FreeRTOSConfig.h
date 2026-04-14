@@ -31,7 +31,7 @@
 #define configTICK_RATE_HZ                                          250
 
 // ... TODO: Might need to increase
-#define configMAX_PRIORITIES                                        5
+#define configMAX_PRIORITIES                                        16
 
 // Primarily sets the Idle mode stack size TODO: See if it can be reduced
 #define configMINIMAL_STACK_SIZE                                    128
@@ -85,7 +85,7 @@
 
 #define configSUPPORT_DYNAMIC_ALLOCATION                            1
 
-#define configTOTAL_HEAP_SIZE                                       10240
+#define configTOTAL_HEAP_SIZE                                       32768
 
 #define configAPPLICATION_ALLOCATED_HEAP                            0
 

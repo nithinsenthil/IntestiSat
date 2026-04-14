@@ -15,7 +15,7 @@
 //#define MAX_STARTUP_COUNT (30 * 60)		// 30 minutes * 60 seconds per minute
 # define MAX_STARTUP_COUNT (3)
 
-int startup_count = 0;
+volatile int startup_count = 0;
 
 
 void timer_initStartupTimer() {
@@ -56,7 +56,9 @@ void timer_waitStartupTime() {
 	timer_initStartupTimer();
 
 	timer_startupTimerOn();
-	while (startup_count < MAX_STARTUP_COUNT);
+	while (startup_count < MAX_STARTUP_COUNT) {
+		nop(1);
+	}
 	timer_startupTimerOff();
 }
 
