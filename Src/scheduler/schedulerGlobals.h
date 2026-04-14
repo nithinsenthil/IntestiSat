@@ -6,15 +6,15 @@
 #define printMsg printf
 #endif
 
-#include "../inc/globals.h"
-
+#include "globals.h"
+#include "FreeRTOS.h"
 #include <stdio.h>
 #include <setjmp.h>
 #include <signal.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include "event_groups.h"
 
-#include "./../integration/integration.h"
+#include "../integration/integration.h"
 
 #endif

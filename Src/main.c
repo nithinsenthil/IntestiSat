@@ -31,6 +31,34 @@
 #define SYSTICK_DUR_U 10000  // Config. of systick timer in usec (1 ms)
 #define BATTERY_THRESHOLD 20 // TODO: Min. battery voltage value, below which mode -> CHARGING
 
+volatile EventGroupHandle_t events_handler;
+
+/* Misc variables */
+int reboot_count;
+// volatile uint16_t flagBits = 0;     // Declared in status.h
+volatile struct operation_bits_t flag_bits = {0,0};
+
+/* Testing Variables */
+int max_handler_count;
+int systick_handler_count;
+int is_unlimited_tick;
+
+// Define signal handler and timer
+struct sigaction sysTick;
+struct itimerval sysTick_timer;
+
+uint32_t main_stack_frame[32];
+volatile uint32_t main_PC;
+
+static bool led_state = 0;
+
+uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
+
+
+/* Prototypes */
+void sysTick_handler(int signal);
+//jmp_buf to_mode_select;
+
 /**
  * @brief The code inside the while loop will get run continuously until the reset button gets hit,
  * at which point the program will restart.
@@ -46,6 +74,10 @@ int branch_main()
 
   while (1)
   {
+    events_handler = xEventGroupCreate();
+
+    xTaskCreate(led_task, "LED_blink_1", 128, (void*)&led_delay_1, configMAX_PRIORITIES-2, NULL);
+    xTaskCreate(led_task, "LED_blink_2", 128, (void*)&led_delay_2, configMAX_PRIORITIES-2, NULL);
 
   }
 
