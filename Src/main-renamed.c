@@ -17,11 +17,6 @@
 /* Globals */
 #include "scheduler/schedulerGlobals.h"
 
-/* File Includes */
-#include "scheduler/watchdog.h"
-#include "scheduler/intelliTask.h"
-#include "scheduler/status.h"
-
 #include "FreeRTOS.h"
 #include "task.h"
 
