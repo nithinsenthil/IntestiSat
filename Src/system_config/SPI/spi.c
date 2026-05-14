@@ -282,6 +282,7 @@ bool spi_transmitReceive(SPI_TypeDef* spi, uint8_t* transmission, uint8_t *recep
 			*((volatile uint8_t*) &(spi->DR)) = *transmission;
 			transmission++;
 		}
+		while(!(spi->SR & SPI_SR_TXE));
 
     
 		inner_start_time = getSysTime();

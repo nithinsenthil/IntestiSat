@@ -17,7 +17,7 @@
 #define PWMTimer0_ClockEnable() 	RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN
 #define	PWMTimer0_ClockDisable() 	RCC->APB1ENR1 &= ~RCC_APB1ENR1_TIM4EN
 
-#elif OP_REV == 2
+#elif OP_REV == 2 || OP_REV == 3
 
 #define PWMTimer0 					TIM2
 #define PWMTimer0_ClockEnable() 		RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN
