@@ -50,9 +50,8 @@ void low_pwr(void)
     }
 }
 
-bool low_pwr_time(void)
-{
-    static bool was_low = false;
+bool low_power_time(void)
+{sadfkja;sdklfjalskdjfalskdjfasdf    static bool was_low = false;
     const bool is_low = battery_is_low();
     const bool recovered = battery_is_recovered();
 
