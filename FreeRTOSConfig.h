@@ -10,28 +10,28 @@
 
 
 // Use kernal provided functions for managing memory (1)
-#define configKERNEL_PROVIDED_STATIC_MEMORY							            1
+#define configKERNEL_PROVIDED_STATIC_MEMORY							1
 
 // Use preemptive scheduler instead of cooperative (1)
 #define configUSE_PREEMPTION                                        1
 
 // TODO: ... test with (1)
-#define configUSE_PORT_OPTIMISED_TASK_SELECTION                     1
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION                     0
 
 // TODO: Power saving mode test with (1)
-#define configUSE_TICKLESS_IDLE                                     1
+#define configUSE_TICKLESS_IDLE                                     0
 
 // ... DON'T MODIFY
-#define configCPU_CLOCK_HZ                                          10000000 // Use AHB /8, not AHB. AHB = 80MHz
+#define configCPU_CLOCK_HZ                                          80000000
 
 // ... DON'T MODIFY
 #define configSYSTICK_CLOCK_HZ                                      ( configCPU_CLOCK_HZ / 8 )
 
 // ... TODO: Tune?
-#define configTICK_RATE_HZ                                          1000
+#define configTICK_RATE_HZ                                          250
 
 // ... TODO: Might need to increase
-#define configMAX_PRIORITIES                                        7
+#define configMAX_PRIORITIES                                        5
 
 // Primarily sets the Idle mode stack size TODO: See if it can be reduced
 #define configMINIMAL_STACK_SIZE                                    128
@@ -58,7 +58,7 @@
 
 #define configUSE_ALTERNATIVE_API                                   0 /* Deprecated! */
 
-#define configQUEUE_REGISTRY_SIZE                                   8
+#define configQUEUE_REGISTRY_SIZE                                   0
 
 #define configUSE_QUEUE_SETS                                        0
 
@@ -85,7 +85,7 @@
 
 #define configSUPPORT_DYNAMIC_ALLOCATION                            1
 
-#define configTOTAL_HEAP_SIZE                                       40960
+#define configTOTAL_HEAP_SIZE                                       10240
 
 #define configAPPLICATION_ALLOCATED_HEAP                            0
 
@@ -98,9 +98,9 @@
 
 #define configUSE_TICK_HOOK                                 0
 
-#define configCHECK_FOR_STACK_OVERFLOW                      2
+#define configCHECK_FOR_STACK_OVERFLOW                      0
 
-#define configUSE_MALLOC_FAILED_HOOK                        1
+#define configUSE_MALLOC_FAILED_HOOK                        0
 
 #define configUSE_DAEMON_TASK_STARTUP_HOOK                  0
 
@@ -111,7 +111,7 @@
 
 #define configGENERATE_RUN_TIME_STATS                       0
 
-#define configUSE_TRACE_FACILITY                            1
+#define configUSE_TRACE_FACILITY                            0
 
 #define configUSE_STATS_FORMATTING_FUNCTIONS                0
 
@@ -129,9 +129,9 @@
 
 #define configTIMER_TASK_PRIORITY                           0
 
-#define configTIMER_QUEUE_LENGTH                            5
+#define configTIMER_QUEUE_LENGTH                            0
 
-#define configTIMER_TASK_STACK_DEPTH                        128 //configMINIMAL_STACK_SIZE
+#define configTIMER_TASK_STACK_DEPTH                        0 //configMINIMAL_STACK_SIZE
 
 
 /* Interrupt nesting behaviour configuration. */
@@ -157,7 +157,26 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 //#define configASSERT ( x )  if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
 
+
+/* FreeRTOS MPU specific definitions. */
+
+#define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 0
+
+#define configTOTAL_MPU_REGIONS                                8 /* Default value */
+
+#define configTEX_S_C_B_FLASH                                  0x07UL /* Default value */
+
+#define configTEX_S_C_B_SRAM                                   0x07UL /* Default value */
+
+#define configENFORCE_SYSTEM_CALLS_FROM_KERNEL_ONLY            1
+
+#define configALLOW_UNPRIVILEGED_CRITICAL_SECTIONS             1
+
+#define configENABLE_ERRATA_837070_WORKAROUND                  1
+
+
 /* ARMv8-M secure side port related definitions. */
+
 #define secureconfigMAX_SECURE_CONTEXTS         5
 
 
@@ -177,7 +196,7 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 #define INCLUDE_vTaskDelay                      1
 
-#define INCLUDE_xTaskGetSchedulerState          0
+#define INCLUDE_xTaskGetSchedulerState          1
 
 #define INCLUDE_xTaskGetCurrentTaskHandle       1
 
@@ -201,14 +220,12 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 
 /* A header file that defines trace macro can be included here. */
-// ! Should not get call as we do the inits ourselves
+
 
 /* Redirect FreeRTOS post interrupts. */
 #define vPortSVCHandler                         SVC_Handler
 #define xPortPendSVHandler                      PendSV_Handler
-/* IMPORTANT: This define is commented when used with STM32Cube firmware, when the timebase source is SysTick,
-              to prevent overwriting SysTick_Handler defined within STM32Cube HAL */
-// #define xPortSysTickHandler                     SysTick_Handler
+#define xPortSysTickHandler                     SysTick_Handler
 
 
 #endif /* FREERTOS_CONFIG_H */

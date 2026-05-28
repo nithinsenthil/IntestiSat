@@ -1,6 +1,10 @@
 #ifndef INTELLITASKS_PROTO_H_
 #define INTELLITASKS_PROTO_H_
-#include "globals.h"
+
+#include "../schedulerGlobals.h"
+
+// default to 32
+volatile extern EventGroupHandle_t events_handler;
 
 /* Scheduling methods */
 
@@ -42,7 +46,7 @@ void clean_low_pwr();
 void clean_detumble();
 void clean_comms();
 void clean_experiment();
-void clean_ecc();;
+void clean_ecc();
 void clean_pizza();void clean_idle();
 
 

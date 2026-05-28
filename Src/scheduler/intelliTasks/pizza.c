@@ -1,20 +1,22 @@
+#include <stdbool.h>#include <stdbool.h>
+#include <stdbool.h>
+#include <stdbool.h>
+#include <stdbool.h>
 #include <stdbool.h>
 
 bool pizza_time() {
-    printMsg("pizza time?\n");
+    printingFunction("pizza time?\n\r");
     return true;
-}
-
-void config_pizza() {
-    printMsg("pizza config\n");
+}void pizza_error() {
+    printingFunction("pizza error\n\r");
+}void config_pizza() {
+    printingFunction("pizza config\n\r");
 }
 
 void pizza() {
-    while (1) {
-        printMsg("pizza run\n");
-    }
+    printingFunction("pizza run\n\r");
 }
 
 void clean_pizza() {
-    printMsg("pizza cleanup\n");
+    printingFunction("pizza cleanup\n\r");
 }

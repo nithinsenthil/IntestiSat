@@ -13,27 +13,26 @@
 #include "rtc.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-bool is_not_init_RTC() { return !(RTC->ISR & RTC_ISR_INITF); }
 
-void rtc_openWritingPrivilege() {
+void rtc_openWritingPriveledge() {
 	// Allow Backup Domain Writing Access
 	backup_domain_controlEnable();
 
 	// Enable RTC Write Privilege
-	RTC->WPR = RTC_WPR_WRITE_PROTECT_ON_1;
-	RTC->WPR = RTC_WPR_WRITE_PROTECT_ON_2;
+	RTC->WPR = 0xCA;
+	RTC->WPR = 0x53;
 
 	// Enter RTC Initialization mode, wait for confirmation of initialization mode
 	RTC->ISR |= RTC_ISR_INIT;
-	wait_with_timeout(is_not_init_RTC, DEFAULT_TIMEOUT_MS);
+	while (!(RTC->ISR & RTC_ISR_INITF));
 }
 
-void rtc_closeWritingPrivilege() {
+void rtc_closeWritingPriveledge() {
 	// Exit Initialization Mode
 	RTC->ISR &= ~RTC_ISR_INIT;
 
 	// Enable RTC Write Protection
-	RTC->WPR = RTC_WPR_WRITE_PROTECT_OFF;
+	RTC->WPR = 0xFF;
 
 	// Close Backup Domain Writing Access
 	backup_domain_controlDisable();
@@ -76,7 +75,7 @@ void rtc_config(char clock_source, int forced_config) {
 
 	backup_domain_controlDisable();
 
-	rtc_openWritingPrivilege();
+	rtc_openWritingPriveledge();
 
 	// Select the RTC clock source
 	switch (clock_source) {
@@ -101,7 +100,7 @@ void rtc_config(char clock_source, int forced_config) {
 	// Bypass the Shadow registers to read RTC directly
 	RTC->CR |= RTC_CR_BYPSHAD;
 
-	rtc_closeWritingPrivilege();
+	rtc_closeWritingPriveledge();
 
 }
 
@@ -122,7 +121,7 @@ void rtc_setCalendar(uint8_t year, uint8_t month, uint8_t date, uint8_t day) {
 		return;
 	}
 
-	rtc_openWritingPrivilege();
+	rtc_openWritingPriveledge();
 
 	// reset all the values
 	RTC->DR &= ~(
@@ -146,11 +145,11 @@ void rtc_setCalendar(uint8_t year, uint8_t month, uint8_t date, uint8_t day) {
 		| (date % 10)  << RTC_DR_DU_Pos		// Date Ones Digit
 	);
 
-	rtc_closeWritingPrivilege();
+	rtc_closeWritingPriveledge();
 }
 
 void rtc_setTime(uint8_t hour, uint8_t minute, uint8_t second) {
-	rtc_openWritingPrivilege();
+	rtc_openWritingPriveledge();
 
 	// reset all the values
 	RTC->TR &= ~(
@@ -172,11 +171,11 @@ void rtc_setTime(uint8_t hour, uint8_t minute, uint8_t second) {
 		| (second % 10) << RTC_TR_SU_Pos	// Second Ones Digit
 	);
 
-	rtc_closeWritingPrivilege();
+	rtc_closeWritingPriveledge();
 }
 
 void rtc_writeToBKPNumber(uint32_t bits, uint32_t bkp){
-		rtc_openWritingPrivilege();
+		rtc_openWritingPriveledge();
 		switch (bkp) {
 		    case 0:
 		        RTC->BKP0R = bits;
@@ -278,7 +277,7 @@ void rtc_writeToBKPNumber(uint32_t bits, uint32_t bkp){
 		        // Handle case when var is not in the range 0 to 31
 		        break;
 		}
-		rtc_closeWritingPrivilege();
+		rtc_closeWritingPriveledge();
 }
 
 /****************************** RTC TIME GETTERS *****************************/
@@ -294,13 +293,7 @@ void rtc_getTime(uint8_t *hour, uint8_t *minute, uint8_t *second) {
 		uint8_t temp_second = *second + 1;
 
 		// check to make sure both values read were consistent
-		uint64_t start_time = getSysTime(); //time in ms
-		while (
-			((*hour != temp_hour) || 
-			(*minute != temp_minute) || 
-			(*second != temp_second)) &&
-			is_time_out(start_time, DEFAULT_TIMEOUT_MS)
-		) {
+		while ((*hour != temp_hour) || (*minute != temp_minute) || (*second != temp_second)) {
 			// read the values once
 			*hour    = 10 * ((RTC->TR & RTC_TR_HT_Msk)  >> RTC_TR_HT_Pos);
 			*hour   += 1  * ((RTC->TR & RTC_TR_HU_Msk)  >> RTC_TR_HU_Pos);

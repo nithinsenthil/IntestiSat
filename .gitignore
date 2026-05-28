@@ -58,7 +58,3 @@ release
 
 # Launch file
 *.launch
-.vscode/*
-
-# CMake build files
-build

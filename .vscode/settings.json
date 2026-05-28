@@ -1,0 +1,4 @@
+{
+    "files.associations": {        "freertos.h": "c",
+        "free.c": "h"    }
+}

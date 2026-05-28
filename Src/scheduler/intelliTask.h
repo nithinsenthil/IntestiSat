@@ -1,14 +1,17 @@
 #ifndef _TASK_H_
 #define _TASK_H_
-// #include "./../integration/integration.h"
 
-#include "FreeRTOS.h"
+#include "schedulerGlobals.h"
 #include "task.h"
+#include <limits.h>
+
+#include "status.h"
 
 #include <stdbool.h>
 
-#define TASK_TABLE_LEN 7
+#define TASK_TABLE_LEN 6
 
+#define TASK_NOTIFY_ALL 0xFFFFFFFF
 
 /*
  * Task - a mode of execution on satellite
@@ -27,6 +30,8 @@ typedef struct intellisat_task_t {
 } intelli_task_t;
 
 extern intelli_task_t task_table[TASK_TABLE_LEN];
+
+void send_task_notification(uint8_t task_id, uint32_t bits);
 
 // /* Scheduling methods */
 // bool low_pwr_time(); // tautology (charging is idle mode)
