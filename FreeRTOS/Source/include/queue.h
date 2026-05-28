@@ -1741,11 +1741,7 @@ BaseType_t xQueueGiveMutexRecursive( QueueHandle_t xMutex ) PRIVILEGED_FUNCTION;
  *
  * See FreeRTOS/Source/Demo/Common/Minimal/QueueSet.c for an example using this
  * function.
- *
- * Note 1:  See the documentation on https://www.FreeRTOS.org/RTOS-queue-sets.html
- * for reasons why queue sets are very rarely needed in practice as there are
- * simpler methods of blocking on multiple objects.
- *
+ * * Note 1:  Queue sets are very rarely needed in practice as there are simpler methods of blocking on multiple objects. *
  * Note 2:  Blocking on a queue set that contains a mutex will not cause the
  * mutex holder to inherit the priority of the blocked task.
  *
