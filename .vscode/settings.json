@@ -1,5 +1,4 @@
 {
-    "files.associations": {
-        "freertos.h": "c"
-    }
+    "files.associations": {        "freertos.h": "c",
+        "free.c": "h"    }
 }
