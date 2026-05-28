@@ -7,9 +7,9 @@
 bool pizza_time() {
     printingFunction("pizza time?\n\r");
     return true;
-}
-
-void config_pizza() {
+}void pizza_error() {
+    printingFunction("pizza error\n\r");
+}void config_pizza() {
     printingFunction("pizza config\n\r");
 }
 
